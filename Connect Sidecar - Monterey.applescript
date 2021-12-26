@@ -6,17 +6,17 @@ set deviceName to "My iPad" -- Change this to the name of your iPad.
 tell application "System Events"
 	tell its application process "ControlCenter"
 		-- Click the Control Center menu.
-		click menu bar item "Control Center" of menu bar 1
+		click menu bar item "コントロールセンター" of menu bar 1
 		
 		-- Give the window time to draw.
 		delay 1
 		
 		-- Get all of the checkboxes in the Control Center menu.
-		set ccCheckboxes to name of (every checkbox of window "Control Center")
+		set ccCheckboxes to name of (every checkbox of window "コントロールセンター")
 		
-		if ccCheckboxes contains "Connect to Sidecar" then
+		if ccCheckboxes contains "Sidecarに接続" then
 			-- If one of the checkboxes is named "Connect to Sidecar," click that checkbox.
-			set sidecarToggle to checkbox "Connect to Sidecar" of window "Control Center"
+			set sidecarToggle to checkbox "Sidecarに接続" of window "コントロールセンター"
 			click sidecarToggle
 			
 			-- This opens a secondary window that contains the button to actually connect to Sidecar. Give the window time to draw.
@@ -24,7 +24,7 @@ tell application "System Events"
 			
 			-- In masOS Monterey, the Sidecar device toggle (checkbox) is inside of a scroll area.
 			-- Rather than assume that it's in scroll area 1, get all of the scroll areas, loop through them, and find the device toggle.
-			set scrollAreas to (every scroll area of window "Control Center")
+			set scrollAreas to (every scroll area of window "コントロールセンター")
 			set saCounter to 1
 			set displayCheckboxes to ""
 			
@@ -42,16 +42,16 @@ tell application "System Events"
 			
 			if displayCheckboxes contains deviceName then
 				-- If we found the a checkbox with the iPad's name, `saCounter` tells us which scroll area contains the Sidecar toggle.
-				set deviceToggle to checkbox deviceName of scroll area saCounter of window "Control Center"
+				set deviceToggle to checkbox deviceName of scroll area saCounter of window "コントロールセンター"
 				
 				-- Click the toggle to connect Sidecar.
 				click deviceToggle
 				
 				-- Click the Control Center menu to close the secondary menu and return to the main menu.
-				click menu bar item "Control Center" of menu bar 1
+				click menu bar item "コントロールセンター" of menu bar 1
 				
 				-- Click the Control Center menu again to close the main menu.
-				click menu bar item "Control Center" of menu bar 1
+				click menu bar item "コントロールセンター" of menu bar 1
 			else
 				-- Sidecar is available, but no devices with deviceName were found.
 				display dialog "The device " & deviceName & " can't be found. Please verify the name of your iPad and update the `deviceName` variable if necessary."
@@ -71,11 +71,11 @@ tell application "System Events"
 			
 			if isConnected is equal to true then
 				-- Click the checkbox to disconnect Sidecar.
-				set sidecarToggle to ((checkbox 1 of window "Control Center") whose name contains "Disconnect")
+				set sidecarToggle to ((checkbox 1 of window "コントロールセンター") whose name contains "Disconnect")
 				click sidecarToggle
 				
 				-- Click the Control Center menu again to close the main menu.
-				click menu bar item "Control Center" of menu bar 1
+				click menu bar item "コントロールセンター" of menu bar 1
 			else
 				-- Sidecar isn't connected, and no devices are available to connect to. Show an error message.
 				display dialog "No Sidecar devices are in range."
